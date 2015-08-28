@@ -25,7 +25,6 @@
         function testGetStore()
         {
             //Arrange
-            $id = 1;
             $store = "Payless Shoes";
             $test_store = new Store($id, $store);
 
@@ -38,9 +37,9 @@
 
         function testSetStore()
         {
-            $id = 1;
+
             $store = "Payless Shoes";
-            $test_store = new Store($id, $store);
+            $test_store = new Store($store);
 
             $test_store->setStore("JC Penny");
             $result = $test_store->getStore();
@@ -113,13 +112,14 @@
             $test_store->save();
 
             $id2 = 2;
-            $store2 = "Meyer & Frank";
-            $test_store2 = new Store($id2, $store2);
-            $test_store2->save();
+            $brand = "Sketchers";
+            $test_brand = new Brand($id2, $brand);
+            $test_brand->save();
 
+            $test_store->addBrand($test_brand);
             $test_store->delete();
 
-            $this->assertEquals([$test_store2], Store::getAll());
+            $this->assertEquals([], $test_brand->getStores());
         }
 
         function testGetAll()
@@ -152,7 +152,7 @@
 
             $id2 = 2;
             $store2 = "Meyer & Frank";
-            $test_store2 = new Store($id, $store);
+            $test_store2 = new Store($id2, $store);
             $test_store2->save();
 
             Store::deleteAll();
@@ -160,6 +160,44 @@
             //Assert
             $result = Store::getAll();
             $this->assertEquals([], $result);
+        }
+
+        //Join table tests
+        function testAddBrand()
+        {
+            $id = null;
+            $store = "Payless Shoes";
+            $test_store = new Store($id, $store);
+            $test_store->save();
+
+            $brand = "Sketchers";
+            $test_brand = new Brand($id, $brand);
+            $test_brand->save();
+
+            $test_store->addBrand($test_brand);
+
+            $this->assertEquals($test_store->getBrands(), [$test_brand]);
+        }
+
+        function testGetBrands()
+        {
+            $id = null;
+            $store = "Payless Shoes";
+            $test_store = new Store($id, $store);
+            $test_store->save();
+
+            $brand = "Sketchers";
+            $test_brand = new Brand($id, $brand);
+            $test_brand->save();
+
+            $brand2 = "Nike";
+            $test_brand2 = new Brand($id, $brand2);
+            $test_brand2->save();
+
+            $test_store->addBrand($test_brand);
+            $test_store->addBrand($test_brand2);
+
+            $this->assertEquals($test_store->getBrands(), [$test_brand, $test_brand2]);
         }
     }
  ?>
