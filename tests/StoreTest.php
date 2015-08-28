@@ -19,6 +19,7 @@
         protected function tearDown()
         {
             Store::deleteAll();
+            Brand::deleteAll();
         }
 
         function testGetStore()
@@ -71,6 +72,23 @@
 
             //Assert
             $this->assertEquals($test_store, $result[0]);
+        }
+
+        function testFind()
+        {
+            $id = 1;
+            $store = "Payless Shoes";
+            $test_store = new Store($id, $store);
+            $test_store->save();
+
+            $id2 = 2;
+            $store2 = "Meyer & Frank";
+            $test_store2 = new Store($id2, $store2);
+            $test_store2->save();
+
+            $result = Store::find($test_store->getId());
+
+            $this->assertEquals($test_store, $result);
         }
 
         function testUpdate()
