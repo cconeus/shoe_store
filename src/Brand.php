@@ -78,7 +78,7 @@
 
         static function deleteAll()
         {
-            $GLOBALS['DB']->exec("DELETE FROM brand;");
+            $GLOBALS['DB']->exec("DELETE FROM brand;");            
         }
     }
  ?>

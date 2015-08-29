@@ -39,7 +39,7 @@
         {
 
             $store = "Payless Shoes";
-            $test_store = new Store($store);
+            $test_store = new Store($id, $store);
 
             $test_store->setStore("JC Penny");
             $result = $test_store->getStore();

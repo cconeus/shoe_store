@@ -26,7 +26,7 @@
         {
             //Arrange
             $brand = "Sketchers";
-            $test_brand = new Brand($brand);
+            $test_brand = new Brand($id, $brand);
 
             //Act
             $result = $test_brand->getBrand();
@@ -39,7 +39,7 @@
         {
             //Arrange
             $brand = "Sketchers";
-            $test_brand = new Brand($brand);
+            $test_brand = new Brand($id, $brand);
 
             $test_brand->setBrand("Vans");
             $result = $test_brand->getBrand();
