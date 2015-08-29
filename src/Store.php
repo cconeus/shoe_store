@@ -74,7 +74,7 @@
             foreach($brand_ids as $id) {
                 $brand_id = $id['brand_id'];
                 $result = $GLOBALS['DB']->query("SELECT * FROM brand WHERE id = {$brand_id};");
-                $return_brand = $result->fetchAll(PDO:: FETCH_ASSOC);
+                $returned_brand = $result->fetchAll(PDO:: FETCH_ASSOC);
 
                 $id = $returned_brand[0]['id'];
                 $brand = $returned_brand[0]['brand'];

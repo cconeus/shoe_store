@@ -41,7 +41,7 @@
         //Join table getters/setters
         function addStore($store)
         {
-            $GLOBALS['DB']->exec("INSERT INTO store_brand (store_id, brand_id) VALUES ({$this->getId()}, {$store->getId()});");
+            $GLOBALS['DB']->exec("INSERT INTO store_brand (store_id, brand_id) VALUES ({$store->getId()}, {$this->getId()});");
         }
 
         function getStores()
@@ -56,7 +56,7 @@
                 $returned_store = $result->fetchAll(PDO:: FETCH_ASSOC);
 
                 $id = $returned_store[0]['id'];
-                $brand = $returned_brand[0]['store'];
+                $brand = $returned_store[0]['store'];
                 $new_store = new Store($id, $store);
                 array_push($stores, $new_store);
             }
