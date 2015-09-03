@@ -6,7 +6,7 @@
     </head>
     <body>
         <div class="container" align="center">
-            <h2>{{ brand.getName }} Homepage</h2>
+            <h2>Vew stores where {{ brand.getName }} are sold</h2>
 
             {% if stores is not empty %}
             <h4>Here are the stores selling this brand:</h4>
@@ -29,6 +29,7 @@
                     </select>
                     <button type="submit" class="btn btn-warning">add</button>
                 </form>
+            <p>No stores listed? Click <a href="/stores">here</a> to add one!</p>
             <p>Nevermind? Go <a href="/brands">back</a></p>
         </div>
     </body>
