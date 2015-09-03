@@ -32,12 +32,6 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
-        function delete()
-        {
-            $GLOBALS['DB']->exec("DELETE FROM brand WHERE id = {$this->getId()};");
-            $GLOBALS['DB']->exec("DELETE FROM store_brand WHERE store_id = {$this->getId()};");
-        }
-
         //Join table getters/setters
         function addStore($store)
         {
@@ -46,21 +40,18 @@
 
         function getStores()
         {
-            $query = $GLOBALS['DB']->query("SELECT store_id FROM store_brand WHERE brand_id = {$this->getId()};");
-            $store_ids = $query->fetchAll(PDO::FETCH_ASSOC);
-
+            $returned_stores = $GLOBALS['DB']->query("SELECT stores.* FROM
+                brand JOIN store_brand ON (brand.id = store_brand.brand_id)
+                       JOIN stores ON (store_brand.store_id = store.id)
+                       WHERE brand.id = {$this->getId()};");
             $stores = array();
-            foreach($store_ids as $id) {
-                $store_id = $id['store_id'];
-                $result = $GLOBALS['DB']->query("SELECT * FROM stores WHERE id = {$store_id};");
-                $returned_store = $result->fetchAll(PDO:: FETCH_ASSOC);
-
-                $id = $returned_store[0]['id'];
-                $brand = $returned_store[0]['store'];
-                $new_store = new Store($id, $store);
+            foreach($returned_stores as $store) {
+                $name = $store['store'];
+                $id = $store['id'];
+                $new_store = new Store($name, $id);
                 array_push($stores, $new_store);
             }
-        return $stores;
+            return $stores;
         }
 
         static function getAll()
@@ -78,7 +69,7 @@
 
         static function deleteAll()
         {
-            $GLOBALS['DB']->exec("DELETE FROM brand;");            
+            $GLOBALS['DB']->exec("DELETE FROM brand;");
         }
     }
  ?>

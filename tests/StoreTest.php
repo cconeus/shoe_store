@@ -7,7 +7,7 @@
     require_once "src/Store.php";
     require_once "src/Brand.php";
 
-    $server = 'mysql:host=localhost:8889;dbname=shoes_test';
+    $server = 'mysql:host=localhost;dbname=shoes_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
@@ -25,6 +25,7 @@
         function testGetStore()
         {
             //Arrange
+            $id = null;
             $store = "Payless Shoes";
             $test_store = new Store($id, $store);
 
@@ -37,7 +38,7 @@
 
         function testSetStore()
         {
-
+            $id = null;
             $store = "Payless Shoes";
             $test_store = new Store($id, $store);
 
@@ -61,7 +62,7 @@
         function testSave()
         {
             //Arrange
-            $id = 1;
+            $id = null;
             $store = "Payless Shoes";
             $test_store = new Store($id, $store);
             $test_store->save();
@@ -75,12 +76,12 @@
 
         function testFind()
         {
-            $id = 1;
+            $id = null;
             $store = "Payless Shoes";
             $test_store = new Store($id, $store);
             $test_store->save();
 
-            $id2 = 2;
+            $id2 = null;
             $store2 = "Meyer & Frank";
             $test_store2 = new Store($id2, $store2);
             $test_store2->save();
@@ -92,7 +93,7 @@
 
         function testUpdate()
         {
-            $id = 1;
+            $id = null;
             $store = "Payless Shoes";
             $test_store = new Store($id, $store);
             $test_store->save();
@@ -111,7 +112,7 @@
             $test_store = new Store($id, $store);
             $test_store->save();
 
-            $id2 = 2;
+            $id2 = 1;
             $brand = "Sketchers";
             $test_brand = new Brand($id2, $brand);
             $test_brand->save();
@@ -125,12 +126,12 @@
         function testGetAll()
         {
             //Arrange
-            $id = 1;
+            $id = null;
             $store = "Payless Shoes";
             $test_store = new Store($id, $store);
             $test_store->save();
 
-            $id2 = 2;
+            $id2 = null;
             $store2 = "Meyer & Frank";
             $test_store2 = new Store($id2, $store2);
             $test_store2->save();
@@ -145,12 +146,12 @@
         function testDeleteAll()
         {
             //Arrange
-            $id = 1;
+            $id = null;
             $store = "Payless Shoes";
             $test_store = new Store($id, $store);
             $test_store->save();
 
-            $id2 = 2;
+            $id2 = null;
             $store2 = "Meyer & Frank";
             $test_store2 = new Store($id2, $store);
             $test_store2->save();
@@ -186,12 +187,14 @@
             $test_store = new Store($id, $store);
             $test_store->save();
 
+            $id2 = null;
             $brand = "Sketchers";
-            $test_brand = new Brand($id, $brand);
+            $test_brand = new Brand($id2, $brand);
             $test_brand->save();
 
+            $id3 = null;
             $brand2 = "Nike";
-            $test_brand2 = new Brand($id, $brand2);
+            $test_brand2 = new Brand($id3, $brand2);
             $test_brand2->save();
 
             $test_store->addBrand($test_brand);
