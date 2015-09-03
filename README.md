@@ -1,13 +1,13 @@
 
-# _{Application Name}_
+# _Shoe Store_
 
-##### _{Brief description of application}, {Date of current version}_
+##### _An application for tracking shoes and stores, 9/3/2015_
 
-#### By _**{List of contributors}**_
+#### By _**Dana Sharman**_
 
 ## Description
 
-_{This is a detailed description of your application. Give as much detail as needed to explain what the application does, and any other information you want users or other developers to have. Do you want other developers to use this code in their apps? Talk about things like that here in simple terms.}_
+_This application allows a user to add local stores, as well as brands of shoes, then view the results of each store and the brands that store carries._
 
 ## Setup
 

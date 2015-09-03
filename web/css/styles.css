@@ -1,0 +1,21 @@
+body {
+    background-image: url(http://www.homegue.com/wp-content/uploads/2011/12/seraphita_shoe_stores_03.jpg);
+    opacity: 1;
+    background-size: cover;
+    background-color: black;
+    background-repeat: no-repeat;
+}
+
+h1 {
+    color:#5aaeff;
+    text-shadow: 1px 1px 2px black;
+}
+
+label, p, h2, h3, h4, h5, h6 {
+    color:#b6e0ff;
+    text-shadow: 1px 1px 2px black;
+}
+
+button {
+    text-shadow: 1px 1px 2px black;
+}

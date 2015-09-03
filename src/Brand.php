@@ -1,14 +1,24 @@
 <?php
-
     class Brand
     {
+        private $name;
         private $id;
-        private $brand;
 
-        function __construct($id = null, $brand)
+        function __construct($name, $id = null)
         {
-            $this->id = $id;
-            $this->brand = $brand;
+        $this->name = $name;
+        $this->id = $id;
+        }
+
+
+        function getName()
+        {
+            return $this->name;
+        }
+
+        function setName($new_name)
+        {
+            $this->name = (string) $new_name;
         }
 
         function getId()
@@ -16,60 +26,70 @@
             return $this->id;
         }
 
-        function getBrand()
-        {
-            return $this->brand;
-        }
-
-        function setBrand($new_brand)
-        {
-            $this->brand = $new_brand;
-        }
 
         function save()
         {
-            $GLOBALS['DB']->exec("INSERT INTO brand (brand) VALUES ('{$this->getBrand()}');");
-            $this->id = $GLOBALS['DB']->lastInsertId();
+            $GLOBALS['DB']->exec("INSERT INTO brands (name) VALUES ('{$this->getName()}');");
+                $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
-        //Join table getters/setters
+
         function addStore($store)
         {
-            $GLOBALS['DB']->exec("INSERT INTO store_brand (store_id, brand_id) VALUES ({$store->getId()}, {$this->getId()});");
+            $GLOBALS['DB']->exec("INSERT INTO stores_brands (store_id, brand_id) VALUES (
+                {$store->getId()}, {$this->getId()}
+            );");
         }
 
         function getStores()
         {
-            $returned_stores = $GLOBALS['DB']->query("SELECT stores.* FROM
-                brand JOIN store_brand ON (brand.id = store_brand.brand_id)
-                       JOIN stores ON (store_brand.store_id = store.id)
-                       WHERE brand.id = {$this->getId()};");
-            $stores = array();
-            foreach($returned_stores as $store) {
-                $name = $store['store'];
+            $stores_query = $GLOBALS['DB']->query(
+                "SELECT stores.* FROM
+                    brands JOIN stores_brands ON (brands.id = stores_brands.brand_id)
+                           JOIN stores        ON (stores_brands.store_id = stores.id)
+                WHERE brands.id = {$this->getId()};"
+            );
+
+            $matching_stores = array();
+            foreach ($stores_query as $store) {
+                $name = $store['name'];
                 $id = $store['id'];
-                $new_store = new Store($name, $id);
-                array_push($stores, $new_store);
+                $new_store = New Store($name, $id);
+                array_push($matching_stores, $new_store);
             }
-            return $stores;
+            return $matching_stores;
         }
+
 
         static function getAll()
         {
-            $returned_brands = $GLOBALS['DB']->query("SELECT * FROM brand;");
-            $brands = array();
-            foreach($returned_brands as $brand) {
+            $brands_query = $GLOBALS['DB']->query("SELECT * FROM brands;");
+            $all_brands = array();
+            foreach ($brands_query as $brand) {
+                $name = $brand['name'];
                 $id = $brand['id'];
-                $name = $brand['brand'];
-                $new_brand = new Brand($id, $name);
-                array_push($brands, $new_brand);
+                $new_brand = new Brand($name, $id);
+                array_push($all_brands, $new_brand);
             }
-        return $brands;
+            return $all_brands;
         }
 
         static function deleteAll()
         {
-            $GLOBALS['DB']->exec("DELETE FROM brand;");
+            $GLOBALS['DB']->exec("DELETE FROM brands;");
+        }
+
+        static function find($search_id)
+        {
+            $found_brand = null;
+            $brands = Brand::getAll();
+            foreach ($brands as $brand) {
+                if($brand->getId() == $search_id) {
+                    $found_brand = $brand;
+                }
+            }
+            return $found_brand;
         }
     }
+
  ?>
