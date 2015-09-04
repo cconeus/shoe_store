@@ -27,11 +27,12 @@
                             <option value="{{ brand.getId }}">{{ brand.getName }}</option>
                         {% endfor %}
                     </select>
-                    <button type="submit" class="btn btn-warning">add</button>
+                    <button type="submit" class="btn btn-success">add</button>
                 </form>
                 <p>No brands at this store? Click <a href="/brands">here</a> to add a brand!</p>
+                <a href="/delete_store"><button class="btn btn-danger">Delete this store</button></a>
 
-            <p>Nevermind? Go <a href="/stores">back</a></p>
+            <p><a href="/stores">Back to stores</a></p>
         </div>
     </body>
 </html>
