@@ -94,12 +94,10 @@
         return $app['twig']->render('brands_in_store.html.twig', array('brand' => $brand, 'store' => $store_selling_brands, 'all_stores' => Store::getAll()));
     });
 
-    $app->post("/brands/{id}", function ($id) use ($app) {
+    $app->post("/brands/{id}", function($id) use ($app) {
         $brand = Brand::find($_POST['brand_id']);
         $store = Store::find($_POST['store_id']);
         $brand->addStore($store);
-        $new_store = new Store($_POST['name']);
-        $new_store->save();
         return $app['twig']->render('brands_in_store.html.twig', array('brand' => $brand, 'stores' => $brand->getStores(), 'all_stores' => Store::getAll()));
     });
     return $app;

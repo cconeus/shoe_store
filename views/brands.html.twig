@@ -24,7 +24,7 @@
 
                 <div class="col-sm-6">
                     {% if brands is not empty %}
-                    <p>All Brands</p>
+                    <h4>All Brands</h4>
 
                     {% for brand in brands %}
                         <p><a href="/brands/{{ brand.getId }}">{{ brand.getName }}</a></p>
